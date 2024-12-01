@@ -4,7 +4,7 @@ public class Credential {
     private final String firstName;
     private final String lastName;
     private final String email;
-    private boolean isValidFirstName;
+    boolean isValidFirstName;
     private boolean isValidLastName;
     private boolean isValidEmail;
 

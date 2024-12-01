@@ -45,6 +45,15 @@ public class Main {
                     String credential = input.nextLine();
                     Credential user = getCredential(credential);
                     validate(user);
+                    if (credential.split(" ").length < 3) {
+                        System.out.println("Invalid credentials");
+                    } else if (!user.isValidFirstName()) {
+                        System.out.println("Incorrect first name.");
+                    } else if (!user.isValidLastName()) {
+                        System.out.println("Incorrect last name.");
+                    } else if (!user.isValidEmail()) {
+                        System.out.println("Incorrect email.");
+                    } else
                     if (credential.equalsIgnoreCase("back")) {
                         if (studentCount == 0) {
                             System.out.println("Enter 'exit' to exit the program.");
