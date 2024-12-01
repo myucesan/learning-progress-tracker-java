@@ -80,6 +80,8 @@ public class Main {
     }
 
     static Credential getCredential(String credential) {
+        // TODO: Use regex capturing to do this in fewer lines of code
+        // Do note that using regex is more complex but a good exercise
         List<String> names = List.of(credential.split(" "));
         String firstName = names.getFirst();
         StringBuilder lastName = new StringBuilder();
