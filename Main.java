@@ -1,8 +1,8 @@
 package tracker;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,24 +67,18 @@ public class Main {
     }
 
     private static Credential validate(Credential user) {
-        Pattern pattern = Pattern.compile(NameValidationRegex.FIRST_NAME.getRegex());
-        Matcher matcher = pattern.matcher(user.getFirstName());
-        user.setValidFirstName(matcher.hasMatch());
-        pattern = Pattern.compile(NameValidationRegex.LAST_NAME.getRegex());
-        matcher = pattern.matcher(user.getLastName());
-        user.setValidLastName(matcher.hasMatch());;
-        pattern = Pattern.compile(NameValidationRegex.EMAIL.getRegex());
-        matcher = pattern.matcher(user.getEmail());
-        user.setValidEmail(matcher.hasMatch());
-
+        validateField(user, NameValidationRegex.FIRST_NAME, user::setValidFirstName);
+        validateField(user, NameValidationRegex.LAST_NAME, user::setValidLastName);
+        validateField(user, NameValidationRegex.EMAIL, user::setValidEmail);
         return user;
     }
 
-    private static void validateField(Credential user, NameValidationRegex regex) {
+    private static void validateField(Credential user, NameValidationRegex regex, Consumer<Boolean> setter) {
         Pattern pattern = Pattern.compile(regex.getRegex());
         Matcher matcher = pattern.matcher(user.getFirstName());
-        user.setValidFirstName(matcher.hasMatch());
+        setter.accept(matcher.matches());
     }
+
     static Credential getCredential(String credential) {
         List<String> names = List.of(credential.split(" "));
         String firstName = names.getFirst();
