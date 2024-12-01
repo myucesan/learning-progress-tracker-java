@@ -66,11 +66,10 @@ public class Main {
 
     }
 
-    private static Credential validate(Credential user) {
+    private static void validate(Credential user) {
         validateField(user, NameValidationRegex.FIRST_NAME, user::setValidFirstName);
         validateField(user, NameValidationRegex.LAST_NAME, user::setValidLastName);
         validateField(user, NameValidationRegex.EMAIL, user::setValidEmail);
-        return user;
     }
 
     private static void validateField(Credential user, NameValidationRegex regex, Consumer<Boolean> setter) {
