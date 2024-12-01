@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 enum NameValidationRegex {
     FIRST_NAME("(?:[A-Z][a-z]+[\\\\-]*[A-Z][a-z]+)|(?:[A-Z][a-z]+)|(?:[A-Z][\\']*[A-Z][a-z]+)"),
-    LAST_NAME(""),
+    LAST_NAME("(?:[a-z ]*[A-Z][a-z]+)|(?:[A-Z][\\'][A-Z][a-z]+)"),
     EMAIL("");
     private final String regex;
     NameValidationRegex(String regex) {
@@ -45,11 +45,13 @@ public class Main {
                     String credential = input.nextLine();
                     Credential user = getCredential(credential);
                     validate(user);
-                    if (credential.split(" ").length < 3) {
+                    // TODO: Replace null value with something else
+                    if (user == null) {
                         System.out.println("Invalid credentials");
                     } else if (!user.isValidFirstName()) {
                         System.out.println("Incorrect first name.");
                     } else if (!user.isValidLastName()) {
+                        System.out.println(user.getLastName());
                         System.out.println("Incorrect last name.");
                     } else if (!user.isValidEmail()) {
                         System.out.println("Incorrect email.");
@@ -91,6 +93,9 @@ public class Main {
         // TODO: Use regex capturing to do this in fewer lines of code
         // Do note that using regex is more complex but a good exercise
         List<String> names = List.of(credential.split(" "));
+        if (names.size() < 2) {
+            return null;
+        }
         String firstName = names.getFirst();
         StringBuilder lastName = new StringBuilder();
         String email = names.getLast();

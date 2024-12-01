@@ -9,15 +9,15 @@ public class Credential {
     private boolean isValidEmail;
 
     public String getFirstName() {
-        return firstName;
+        return firstName.trim();
     }
 
     public String getLastName() {
-        return lastName;
+        return lastName.trim();
     }
 
     public String getEmail() {
-        return email;
+        return email.trim();
     }
 
     public boolean isValidFirstName() {
